@@ -1,0 +1,2 @@
+AUTOCAD [font = "open sans" en blanc]
+Pour les plans 2D [font = "open sans" gris mais lisible]

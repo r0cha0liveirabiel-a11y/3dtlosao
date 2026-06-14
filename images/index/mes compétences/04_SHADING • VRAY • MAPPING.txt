@@ -1,0 +1,2 @@
+SHADING • VRAY • MAPPING [font = "open sans" blanc]
+Matière et lumière [font = "open sans" gris mais lisible]

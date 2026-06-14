@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TLOSAO</title>
+  <link rel="icon" href="T-tlosao_icon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #ffffff; --off: #f5f4f2; --black: #0d0d0d;
+      --mid: #1a1a1a; --grey: #888888; --light-grey: #e0e0e0;
+      --serif: 'Vogue', 'Bodoni Moda', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+    @font-face {
+      font-family: 'Vogue';
+      src: url('fonts/Vogue.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; height:100%; }
+    body { background:var(--white); color:var(--black); font-family:var(--sans); font-weight:300; line-height:1.6; overflow-x:hidden; min-height:100vh; display:flex; flex-direction:column; }
+    img { display:block; max-width:100%; }
+    header { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(255,255,255,0.97); border-bottom:1px solid var(--light-grey); backdrop-filter:blur(8px); display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:0 2.5rem; height:64px; }
+    .nav-logo { font-family:var(--serif); font-size:1.15rem; font-weight:400; letter-spacing:0.12em; color:var(--black); text-decoration:none; text-transform:uppercase; }
+    h1, h2, h3, h4, h5, h6,
+    .page-title,
+    .section-title,
+    .hero-title,
+    .cta-title,
+    .legal-content h2 {
+      font-family:var(--serif);
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+      word-spacing:-0.04em;
+      font-weight:400;
+      line-height:1.05;
+    }
+    .nav-center { display:flex; gap:2.5rem; align-items:center; }
+    .nav-center a { font-size:0.72rem; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; color:var(--grey); transition:color 0.2s; padding-bottom:2px; border-bottom:1px solid transparent; }
+    .nav-center a:hover, .nav-center a.active { color:var(--black); border-bottom-color:var(--black); }
+    .nav-right { display:flex; justify-content:flex-end; align-items:center; gap:2rem; }
+    .nav-email { font-size:0.72rem; color:var(--grey); text-decoration:none; letter-spacing:0.04em; transition:color 0.2s; }
+    .nav-email:hover { color:var(--black); }
+    .nav-cta { background:var(--black); color:var(--white); padding:0.65rem 1.4rem; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; font-weight:500; white-space:nowrap; transition:background 0.2s; }
+    .nav-cta:hover { background:#333; }
+    .page-hero { padding:8rem 4rem 4rem; background:var(--off); border-bottom:1px solid var(--light-grey); }
+    .page-tag { font-size:0.65rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--grey); margin-bottom:0.8rem; display:flex; align-items:center; gap:0.8rem; }
+    .page-tag::before { content:''; display:block; width:25px; height:1px; background:var(--grey); }
+    .page-title { font-family:var(--serif); font-size:clamp(2.5rem,6vw,5rem); font-weight:500; text-transform:uppercase; letter-spacing:0.08em; line-height:1; color:var(--black); }
+    section { padding:3rem 4rem 2rem; }
+    .section-tag { font-size:0.65rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--grey); margin-bottom:0.8rem; display:flex; align-items:center; gap:0.8rem; }
+    .section-tag::before { content:''; display:block; width:25px; height:1px; background:var(--grey); }
+    .section-title{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:500;text-transform:uppercase;line-height:1;letter-spacing:.05em;margin-bottom:1.5rem;}
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+    .about-img { width:100%; object-fit:cover; filter:grayscale(20%); }
+    .about-text p { font-size:0.88rem; color:#555; line-height:1.9; margin-bottom:1rem; }
+    .about-text strong { color:var(--black); font-weight:500; }
+    .cta-banner { background:var(--black); color:var(--white); padding:5rem 4rem; text-align:center; --cta-y:0px; transform: translateY(var(--cta-y)); }
+    .cta-title { font-family:var(--serif); font-size:clamp(2rem,5vw,4rem); font-weight:500; text-transform:uppercase; letter-spacing:0.18em; line-height:1.1; margin-bottom:1.2rem; }
+    .cta-sub { font-size:0.88rem; color:#aaa; max-width:480px; margin:0 auto 2.5rem; line-height:1.8; }
+    .btn-white { display:inline-block; background:var(--white); color:var(--black); padding:0.85rem 2rem; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; font-weight:500; transition:background 0.2s; }
+    .btn-white:hover { background:var(--light-grey); }
+    .profile-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; max-width:1100px; margin:0 auto; }
+    .profile-text { text-align:right; }
+    .profile-text p { font-size:0.95rem; color:#555; line-height:1.85; margin-bottom:1rem; }
+    .profile-text .small { font-size:0.85rem; color:#777; }
+    .head-container { display:flex; align-items:flex-end; padding:0 2.5rem; margin-bottom:0; --head-x:-450px; --head-y:61px; --head-scale:1; transform: translate(var(--head-x), var(--head-y)) scale(var(--head-scale)); transform-origin: left bottom; transition:transform 0.2s ease; }
+    .head-img { width:700px; height:auto; border-radius:6px; display:block; }
+    main { flex:1; }
+    footer { background:var(--black); color:var(--white); padding:1.4rem 2.5rem; display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; }
+    .footer-item { display:flex; align-items:center; gap:0.6rem; font-size:0.72rem; color:#aaa; text-decoration:none; transition:color 0.2s; white-space:nowrap; }
+    .footer-item:hover { color:var(--white); }
+    .footer-sep { width:1px; height:16px; background:#333; flex-shrink:0; }
+    .footer-legal { margin-left:auto; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:#555; text-decoration:none; display:flex; align-items:center; gap:0.8rem; transition:color 0.2s; }
+    .footer-legal::before { content:''; display:block; width:20px; height:1px; background:#333; }
+    .footer-legal:hover { color:#aaa; }
+    @media(max-width:900px) {
+      .about-grid { grid-template-columns:1fr; }
+      section { padding:2rem 1.5rem 1rem; }
+      .page-hero { padding:7rem 1.5rem 3rem; }
+    }
+    @media(max-width:600px) {
+      .about-grid { grid-template-columns:1fr; }
+      footer { gap:1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="nav-logo">TLOSAO</a>
+    <nav class="nav-center"><a href="index.html" class="">Accueil</a><a href="portfolio.html" class="">Portfolio</a><a href="apropos.html" class="active">Qui suis-je</a><a href="services.html" class="">Services</a></nav>
+    <div class="nav-right">
+      <a href="mailto:3d@tlosao.com" class="nav-email">3d@tlosao.com</a>
+      <a href="contact.html" class="nav-cta" target="_blank">Parlons de votre projet</a>
+    </div>
+  </header>
+
+  <main>
+  <section class="page-hero">
+    <div class="page-tag">À propos</div>
+    <h1 class="page-title">Qui je suis</h1>
+  </section>
+  <section>
+    <div class="profile-grid">
+      <div class="head-container">
+        <img src="images/index/qui_suis-je/ma_tete.png" alt="Ma tête" class="head-img">
+      </div>
+      <div class="profile-text">
+        <h2 class="section-title">Parcours</h2>
+        <p>Je m'appelle Gabriel Rocha Oliveira. Actuellement en cursus à l'ENSAPVS (L3) depuis 2025, j'ai suivi la formation d'EPS‑AA (2022–2025) après une année de Prép'art (2021–2022) et un BAC général (spécialités mathématiques et physique) au Lycée Jeanne d'Albret (2018–2021).</p>
+        <p>Mes expériences comprennent un stage en agence chez Viguier (juin–juillet 2025) — participation à la modélisation 3D, réunions et suivi de projet —, une mission de régie pour Claudia Triozzi (mai 2024) axée sur la conception d'espace et la scénographie, ainsi qu'un stage ouvrier en maçonnerie (juil.–août 2023) où j'ai approfondi la culture constructive et le travail d'équipe.</p>
+        <p class="small">Compétences : Photoshop, AutoCAD, Revit, Blender, SketchUp. Langues : Français (C2), Anglais (C1), Portugais (C1), Espagnol (A2).</p>
+        <p class="small">Contact : 3d@tlosao.com · 07 61 49 61 71</p>
+      </div>
+    </div>
+  </section>
+  <div class="cta-banner" id="contact">
+    <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin-bottom:1rem;">Besoin d'une communication forte ?</p>
+    <h2 class="cta-title">Votre projet mérite d'être remarqué</h2>
+    <a href="mailto:3d@tlosao.com" class="btn-white">Mes prestations →</a>
+  </div>
+
+  </main>
+  <footer>
+    <a href="mailto:3d@tlosao.com" class="footer-item">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      3d@tlosao.com
+    </a>
+    <div class="footer-sep"></div>
+    <a href="tel:+33761496171" class="footer-item">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .99h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.77a16 16 0 006.29 6.29l1.14-1.14a2 2 0 012.11-.45 12.8 12.8 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      07 61 49 61 71
+    </a>
+    <div class="footer-sep"></div>
+    <a href="https://instagram.com/tl0sao" class="footer-item">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="#aaa"/></svg>
+      @tl0sao
+    </a>
+    <div class="footer-sep"></div>
+    <span class="footer-item">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      Mobilité régionale (IDF)
+    </span>
+    <div class="footer-sep"></div>
+    <a href="mentions-legales.html" class="footer-legal">Mentions légales</a>
+  </footer>
+</body>
+</html>

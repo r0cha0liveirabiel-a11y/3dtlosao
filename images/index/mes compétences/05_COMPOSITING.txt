@@ -1,0 +1,2 @@
+COMPOSITING [font = "open sans" blanc]
+Assemblage et retouches non destructifs [font = "open sans" gris mais lisible]

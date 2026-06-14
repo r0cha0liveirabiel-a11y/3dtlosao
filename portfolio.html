@@ -1,0 +1,722 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TLOSAO</title>
+  <link rel="icon" href="T-tlosao_icon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #ffffff;
+      --off: #f5f4f2;
+      --black: #0d0d0d;
+      --mid: #1a1a1a;
+      --grey: #888888;
+      --light-grey: #e0e0e0;
+      --serif: 'Vogue', 'Bodoni Moda', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    @font-face {
+      font-family: 'Vogue';
+      src: url('fonts/Vogue.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid var(--light-grey);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 2.5rem;
+      height: 64px;
+      gap: 3rem;
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--black);
+      text-decoration: none;
+      text-transform: uppercase;
+      position: absolute;
+      left: 2.5rem;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .page-title,
+    .section-title,
+    .hero-title,
+    .cta-title,
+    .legal-content h2 {
+      font-family: var(--serif);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      word-spacing: -0.04em;
+      font-weight: 400;
+      line-height: 1.05;
+    }
+
+    .nav-center {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-center a {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--grey);
+      transition: color 0.2s;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav-center a:hover,
+    .nav-center a.active {
+      color: var(--black);
+      border-bottom-color: var(--black);
+    }
+
+    .nav-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      position: absolute;
+      right: 2.5rem;
+    }
+
+
+    .nav-email:hover {
+      color: var(--black);
+    }
+
+    .nav-cta {
+      background: var(--black);
+      color: var(--white);
+      padding: 0.65rem 1.4rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover {
+      background: #333;
+    }
+
+    .page-hero {
+      padding: 8rem 4rem 4rem;
+      background: var(--off);
+      border-bottom: 1px solid var(--light-grey);
+    }
+
+    .page-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .page-tag::before {
+      content: '';
+      display: block;
+      width: 25px;
+      height: 1px;
+      background: var(--grey);
+    }
+
+    .page-title {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      color: var(--black);
+    }
+
+    section {
+      padding: 0 4rem;
+    }
+
+    .work-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: linear-gradient(to bottom, var(--off) 0%, #000 100%);
+      margin: 0 -4rem;
+      width: calc(100% + 8rem);
+    }
+
+    .work-row {
+      display: grid;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .work-row.row-hv {
+      grid-template-columns: 256fr 81fr;
+    }
+
+    .work-row.row-vh {
+      grid-template-columns: 81fr 256fr;
+    }
+
+    .work-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--white);
+      width: 100%;
+      aspect-ratio: 9 / 16;
+    }
+
+    .work-item.horizontal {
+      aspect-ratio: 16 / 9;
+    }
+
+    .work-item--empty {
+      min-height: 100%;
+      background: #f4f4f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .work-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .work-img.clamp-width {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      margin: 0 auto;
+    }
+
+    .work-item:hover .work-img {
+      transform: scale(1.04);
+    }
+
+    .work-info {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .work-item:hover .work-info {
+      opacity: 1;
+    }
+
+    .work-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 0.3rem;
+    }
+
+    .work-name {
+      font-size: 1.3rem;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .work-desc {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 0.2rem;
+    }
+
+    .lb {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.93);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .lb.open {
+      display: flex;
+    }
+
+    .lb img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      transition: transform 0.2s ease;
+      transform-origin: center center;
+    }
+
+    .lb-close {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.5rem;
+      font-size: 1.8rem;
+      color: #888;
+      cursor: pointer;
+      background: none;
+      border: none;
+      z-index: 301;
+      transition: color 0.2s;
+    }
+
+    .lb-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem;
+      color: #fff;
+      background: rgba(0,0,0,0.35);
+      border: none;
+      width: 3rem;
+      height: 3rem;
+      line-height: 2.85rem;
+      cursor: pointer;
+      z-index: 301;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .lb-nav:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .lb-prev {
+      left: 1rem;
+    }
+
+    .lb-next {
+      right: 1rem;
+    }
+
+    .lb-close:hover {
+      color: #fff;
+    }
+
+    .cta-banner {
+      background: var(--black);
+      color: var(--white);
+      padding: 5rem 4rem;
+      text-align: center;
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+    }
+
+    .cta-sub {
+      font-size: 0.88rem;
+      color: #aaa;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+
+    .btn-white {
+      display: inline-block;
+      background: var(--white);
+      color: var(--black);
+      padding: 0.85rem 2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .btn-white:hover {
+      background: var(--light-grey);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      border: 1.5px solid var(--black);
+      color: var(--black);
+      padding: 0.8rem 1.6rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+      width: fit-content;
+    }
+
+    .btn-outline:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    footer {
+      background: var(--black);
+      color: var(--white);
+      padding: 1.4rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.72rem;
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .footer-item:hover {
+      color: var(--white);
+    }
+
+    .footer-sep {
+      width: 1px;
+      height: 16px;
+      background: #333;
+      flex-shrink: 0;
+    }
+
+    .footer-legal {
+      margin-left: auto;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #555;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: color 0.2s;
+    }
+
+    .footer-legal::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: #333;
+    }
+
+    .footer-legal:hover {
+      color: #aaa;
+    }
+
+    @media(max-width: 900px) {
+      .nav-center {
+        display: none;
+      }
+
+
+      section {
+        padding: 4rem 1.5rem;
+      }
+
+      .page-hero {
+        padding: 7rem 1.5rem 3rem;
+      }
+
+      .work-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width: 600px) {
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      footer {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="nav-logo">TLOSAO</a>
+    <nav class="nav-center">
+      <a href="index.html">Accueil</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
+      <a href="services.html">Services</a>
+    </nav>
+    <div class="nav-right">
+      <a href="contact.html" class="nav-cta" target="_blank">Parlons de votre projet</a>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <div class="page-tag">Mes travaux</div>
+    <h1 class="page-title">Portfolio</h1>
+  </div>
+
+  <section>
+    <div class="work-grid">
+      <div class="work-row row-vh">
+        <div class="work-item" onclick="openLb('menagerie_verre', 0)">
+          <img class="work-img" src="images/portfolio/portfolio_01_menagerie_verre/3.jpg" alt="Ménagerie de Verre">
+          <div class="work-info">
+            <div class="work-tag">Scénographie</div>
+            <div class="work-name">Ménagerie de Verre</div>
+            <div class="work-desc">Une expression du corps qui adpote la lumière</div>
+          </div>
+        </div>
+
+        <div class="work-item horizontal" onclick="openLb('house_forest', 0)">
+          <img class="work-img" src="images/portfolio/portfolio_02_house_forest/1.jpg" alt="House Forest">
+          <div class="work-info">
+            <div class="work-tag">Architecture</div>
+            <div class="work-name">House Forest</div>
+            <div class="work-desc">Du vert pour nos poumons, du vert pour nos yeux</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-row row-hv">
+        <div class="work-item horizontal" onclick="openLb('ile_cite_breuil', 0)">
+          <img class="work-img" src="images/portfolio/portfolio_03_ile_cite_breuil/1.png" alt="Île Cité Breuil">
+          <div class="work-info">
+            <div class="work-tag">Architecture</div>
+            <div class="work-name">Passerelle Vivante</div>
+            <div class="work-desc">Une antenne du Breuil en plein cœur de l'île de la Cité </div> 
+          </div>
+        </div>
+
+        <div class="work-item" onclick="openLb('giacometti', 0)">
+          <img class="work-img clamp-width" src="images/portfolio/1repage_giacometti.png" alt="Giacometti">
+          <div class="work-info">
+            <div class="work-tag">Architecture</div>
+            <div class="work-name">Fondation Giacometti</div>
+            <div class="work-desc">Fusion entre lieu et art</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-row row-vh">
+        <div class="work-item" onclick="openLb('pastiches', 0)">
+          <img class="work-img" src="images/portfolio/portfolio_05_pastiches/1.png" alt="Pastiches">
+          <div class="work-info">
+            <div class="work-tag">Composition - Fiction</div>
+            <div class="work-name">La Nostalgie par l'Image</div>
+            <div class="work-desc">Recréer des scènes iconiques de la pop culture</div>
+          </div>
+        </div>
+
+        <div class="work-item horizontal" onclick="openLb('atmosphere', 0)">
+          <img class="work-img" src="images/portfolio/portfolio_06_atmosphère/2.png" alt="Atmosphère">
+          <div class="work-info">
+            <div class="work-tag">Composition - Fiction</div>
+            <div class="work-name">Atmosphère</div>
+            <div class="work-desc">Laisser libre cours à l'imagination, créer des ambiances à partir de l'imagination</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-banner" id="contact">
+    <p style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin-bottom:1rem;transform:translateY(-20px);">Besoin d'une communication forte ?</p>
+    <h2 class="cta-title">Votre projet mérite d'être remarqué</h2>
+    <a href="services.html" class="btn-white">Mes prestations →</a>
+  </div>
+
+  <footer>
+    <a href="mailto:3d@tlosao.com" class="footer-item">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      3d@tlosao.com
+    </a>
+    <div class="footer-sep"></div>
+    <a href="tel:+33761496171" class="footer-item">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .99h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.77a16 16 0 006.29 6.29l1.14-1.14a2 2 0 012.11-.45 12.8 12.8 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      07 61 49 61 71
+    </a>
+    <div class="footer-sep"></div>
+    <a href="https://instagram.com/tl0sao" class="footer-item">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="#aaa"/></svg>
+      @tl0sao
+    </a>
+    <div class="footer-sep"></div>
+    <span class="footer-item">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      Mobilité régionale (IDF)
+    </span>
+    <div class="footer-sep"></div>
+    <a href="mentions-legales.html" class="footer-legal">Mentions légales</a>
+  </footer>
+
+  <div class="lb" id="lb">
+    <button class="lb-close" onclick="closeLb()">×</button>
+    <button class="lb-nav lb-prev" onclick="prevSlide(event)">‹</button>
+    <button class="lb-nav lb-next" onclick="nextSlide(event)">›</button>
+    <img id="lb-img" src="" alt="">
+  </div>
+
+  <script>
+    const projectSlides = {
+      house_forest: [
+        'images/portfolio/portfolio_02_house_forest/1.jpg',
+        'images/portfolio/portfolio_02_house_forest/2.jpg',
+        'images/portfolio/portfolio_02_house_forest/3.jpg'
+      ],
+      menagerie_verre: [
+        'images/portfolio/portfolio_01_menagerie_verre/1.png',
+        'images/portfolio/portfolio_01_menagerie_verre/2.jpg',
+        'images/portfolio/portfolio_01_menagerie_verre/3.jpg',
+        'images/portfolio/portfolio_01_menagerie_verre/4.jpg',
+        'images/portfolio/portfolio_01_menagerie_verre/5.jpg'
+      ],
+      giacometti: [
+        'images/portfolio/portfolio_04_giacometti/1.png',
+        'images/portfolio/portfolio_04_giacometti/2.png',
+        'images/portfolio/portfolio_04_giacometti/3.png'
+      ],
+      ile_cite_breuil: [
+        'images/portfolio/portfolio_03_ile_cite_breuil/1.png'
+      ],
+      pastiches: [
+        'images/portfolio/portfolio_05_pastiches/1.png',
+        'images/portfolio/portfolio_05_pastiches/2.png',
+        'images/portfolio/portfolio_05_pastiches/3.png',
+        'images/portfolio/portfolio_05_pastiches/4.png'
+      ],
+      atmosphere: [
+        'images/portfolio/portfolio_06_atmosphère/2.png',
+        'images/portfolio/portfolio_06_atmosphère/1.png'
+      ]
+    };
+
+    let currentProject = '';
+    let currentIndex = 0;
+
+    let currentZoom = 1;
+    const minZoom = 1;
+    const maxZoom = 3;
+    const zoomStep = 0.14;
+
+    function openLb(project, index) {
+      currentProject = project;
+      currentIndex = index;
+      currentZoom = project === 'ile_cite_breuil' ? 0.82 : 1;
+      const lbImg = document.getElementById('lb-img');
+      lbImg.src = projectSlides[project][index];
+      lbImg.style.transform = `scale(${currentZoom})`;
+      document.getElementById('lb').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLb() {
+      document.getElementById('lb').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function prevSlide(event) {
+      event.stopPropagation();
+      const slides = projectSlides[currentProject];
+      if (!slides) return;
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      document.getElementById('lb-img').src = slides[currentIndex];
+    }
+
+    function nextSlide(event) {
+      event.stopPropagation();
+      const slides = projectSlides[currentProject];
+      if (!slides) return;
+      currentIndex = (currentIndex + 1) % slides.length;
+      const lbImg = document.getElementById('lb-img');
+      lbImg.src = slides[currentIndex];
+      currentZoom = 1;
+      lbImg.style.transform = 'scale(1)';
+    }
+
+    document.getElementById('lb-img').addEventListener('wheel', function(e) {
+      if (!document.getElementById('lb').classList.contains('open')) return;
+      e.preventDefault();
+      const lbImg = e.currentTarget;
+      currentZoom += e.deltaY < 0 ? zoomStep : -zoomStep;
+      currentZoom = Math.min(maxZoom, Math.max(minZoom, currentZoom));
+      lbImg.style.transform = `scale(${currentZoom})`;
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') prevSlide(e);
+      if (e.key === 'ArrowRight') nextSlide(e);
+    });
+  </script>
+</body>
+</html>

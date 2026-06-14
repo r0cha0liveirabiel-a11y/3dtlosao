@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TLOSAO</title>
+  <link rel="icon" href="T-tlosao_icon.png" type="image/png">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      background: #fff;
+      color: #111;
+      overflow-x: hidden;
+    }
+
+    /* BACKGROUND IMAGE LAYER */
+    .bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('images/contact/blurred_background1.png') center top / 100% auto no-repeat;
+      filter: blur(6px);
+      transform: scale(1);
+      z-index: -2;
+    }
+
+    /* DARK OVERLAY DEPTH */
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.85);
+      z-index: -1;
+    }
+
+    /* GLASS EFFECT FORM BLOCK */
+    form {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.6);
+      padding: 40px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* SUBTLE SHADOW DEPTH */
+    .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    header {
+      padding: 120px 10% 60px;
+    }
+
+    h1 {
+      font-family: "Didot", serif;
+      font-size: 56px;
+      letter-spacing: 10px;
+      font-weight: 300;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .subtitle {
+      max-width: 600px;
+      margin-top: 20px;
+      line-height: 1.7;
+      color: #555;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      padding: 80px 10%;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.6);
+      padding: 40px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .field {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-bottom: 1px solid #ddd;
+      outline: none;
+      font-size: 14px;
+      background: transparent;
+    }
+
+    textarea {
+      min-height: 120px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 14px;
+      background: #111;
+      color: #fff;
+      border: none;
+      letter-spacing: 2px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #333;
+    }
+
+    .info {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #444;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    footer {
+      padding: 60px 10%;
+      font-size: 12px;
+      color: #888;
+      border-top: 1px solid #eee;
+      opacity: 0;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="noise"></div>
+
+<header>
+  <h1 class="reveal">CONTACT</h1>
+  <p class="subtitle reveal">
+    Décrivez votre projet, réponse sous 24h.  
+    Chaque demande est analysée comme une intention architecturale à traduire en image.
+  </p>
+</header>
+
+<div class="container">
+
+  <form action="https://formspree.io/f/your-id" method="POST">
+
+    <div class="field">
+      <label>Nom</label>
+      <input type="text" name="name" required>
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input type="email" name="email" required>
+    </div>
+
+    <div class="field">
+      <label>Type de projet</label>
+      <select name="project_type">
+        <option>Architecture</option>
+        <option>Urbanisme</option>
+        <option>Paysage</option>
+        <option>Autre</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Objectifs</label>
+      <textarea name="objectifs"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Livrables souhaités</label>
+      <textarea name="livrables"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Délais</label>
+      <input type="text" name="delais">
+    </div>
+
+    <button type="submit">Envoyer la demande</button>
+
+  </form>
+
+
+</div>
+
+<footer>
+  © TLOSAO 2026 Tous droits réservés.
+</footer>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // HERO
+  gsap.to(".reveal", {
+    opacity: 1,
+    y: 0,
+    duration: 1.2,
+    stagger: 0.2,
+    ease: "power3.out"
+  });
+
+  // FORM FIELDS
+  gsap.utils.toArray(".field").forEach((el, i) => {
+    gsap.to(el, {
+      scrollTrigger: {
+        trigger: el,
+        start: "top 85%"
+      },
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      delay: i * 0.05,
+      ease: "power2.out"
+    });
+  });
+
+  // INFO PANEL
+  gsap.to(".info", {
+    scrollTrigger: {
+      trigger: ".info",
+      start: "top 80%"
+    },
+    opacity: 1,
+    y: 0,
+    duration: 1
+  });
+
+  // FOOTER
+  gsap.to("footer", {
+    scrollTrigger: {
+      trigger: "footer",
+      start: "top 95%"
+    },
+    opacity: 1,
+    duration: 1
+  });
+
+  // BUTTON
+  gsap.to("button", {
+    scrollTrigger: {
+      trigger: "form",
+      start: "bottom 90%"
+    },
+    opacity: 1,
+    y: 0,
+    duration: 0.8
+  });
+
+  // PARALLAX BACKGROUND
+  gsap.to(".bg", {
+    y: 20,
+    scale: 1.02,
+    ease: "none",
+    scrollTrigger: {
+      trigger: "body",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: true
+    }
+  });
+
+  gsap.to("header h1", {
+    y: -40,
+    scrollTrigger: {
+      trigger: "header",
+      start: "top top",
+      scrub: true
+    }
+  });
+
+  gsap.to(".subtitle", {
+    y: -20,
+    scrollTrigger: {
+      trigger: "header",
+      start: "top top",
+      scrub: true
+    }
+  });
+</script>
+
+</body>
+</html>

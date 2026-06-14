@@ -1,0 +1,374 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TLOSAO</title>
+  <link rel="icon" href="T-tlosao_icon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #ffffff; --off: #f5f4f2; --black: #0d0d0d;
+      --mid: #1a1a1a; --grey: #888888; --light-grey: #e0e0e0;
+      --serif: 'Vogue', 'Bodoni Moda', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+    @font-face {
+      font-family: 'Vogue';
+      src: url('fonts/Vogue.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--white); color:var(--black); font-family:var(--sans); font-weight:300; line-height:1.6; overflow-x:hidden; }
+    img { display:block; max-width:100%; }
+
+    /* NAV */
+    header { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(255,255,255,0.97); border-bottom:1px solid var(--light-grey); backdrop-filter:blur(8px); display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:0 2.5rem; height:64px; }
+    .nav-logo { font-family:var(--serif); font-size:1.15rem; font-weight:400; letter-spacing:0.12em; color:var(--black); text-decoration:none; text-transform:uppercase; }
+    h1, h2, h3, h4, h5, h6,
+    .page-title,
+    .section-title,
+    .hero-title,
+    .cta-title,
+    .legal-content h2 {
+      font-family:var(--serif);
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+      word-spacing:-0.04em;
+      font-weight:400;
+      line-height:1.05;
+    }
+    .nav-center { display:flex; gap:2.5rem; align-items:center; }
+    .nav-center a { font-size:0.72rem; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; color:var(--grey); transition:color 0.2s; padding-bottom:2px; border-bottom:1px solid transparent; }
+    .nav-center a:hover, .nav-center a.active { color:var(--black); border-bottom-color:var(--black); }
+    .nav-right { display:flex; justify-content:flex-end; align-items:center; gap:2rem; }
+    .nav-email:hover { color:var(--black); }
+    .nav-cta { background:var(--black); color:var(--white); padding:0.65rem 1.4rem; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; font-weight:500; white-space:nowrap; transition:background 0.2s; }
+    .nav-cta:hover { background:#333; }
+
+    /* PAGE HEADER */
+    .page-hero { padding:8rem 4rem 4rem; background:var(--off); border-bottom:1px solid var(--light-grey); }
+    .page-tag { font-size:0.65rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--grey); margin-bottom:0.8rem; display:flex; align-items:center; gap:0.8rem; }
+    .page-tag::before { content:''; display:block; width:25px; height:1px; background:var(--grey); }
+    .page-title { font-family:var(--serif); font-size:clamp(2.5rem,6vw,5rem); font-weight:500; text-transform:uppercase; letter-spacing:0.13em; line-height:1; color:var(--black); }
+
+    /* SECTIONS */
+    section { padding:5rem 4rem; }
+    .section-tag { font-size:0.65rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--grey); margin-bottom:0.8rem; display:flex; align-items:center; gap:0.8rem; }
+    .section-tag::before { content:''; display:block; width:25px; height:1px; background:var(--grey); }
+    .section-title{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:500;text-transform:uppercase;line-height:1;letter-spacing:.05em;margin-bottom:1.5rem;white-space:nowrap;}
+
+    /* PORTFOLIO GRID */
+    .work-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; background:var(--light-grey); }
+    .work-item { position:relative; overflow:hidden; cursor:pointer; background:var(--white); aspect-ratio:4/3; }
+    .work-item.wide { grid-column:span 2; aspect-ratio:auto; }
+    .work-img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease; }
+    .work-item:hover .work-img { transform:scale(1.04); }
+    .work-info { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 60%); display:flex; flex-direction:column; justify-content:flex-end; padding:1.5rem; opacity:0; transition:opacity 0.3s; }
+    .work-item:hover .work-info { opacity:1; }
+    .work-tag { font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.7); margin-bottom:0.3rem; }
+    .work-name { font-family:var(--serif); font-size:1.3rem; color:#fff; line-height:1.2; }
+    .work-desc { font-size:0.75rem; color:rgba(255,255,255,0.6); margin-top:0.2rem; }
+
+    /* LIGHTBOX */
+    .lb { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.93); z-index:300; align-items:center; justify-content:center; padding:2rem; cursor:zoom-out; }
+    .lb.open { display:flex; }
+    .lb img { max-width:90vw; max-height:90vh; object-fit:contain; }
+    .lb-close { position:fixed; top:1.2rem; right:1.5rem; font-size:1.8rem; color:#888; cursor:pointer; background:none; border:none; z-index:301; transition:color 0.2s; }
+    .lb-close:hover { color:#fff; }
+
+    /* SERVICES */
+    .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--light-grey); }
+    .service-card { background:var(--white); padding:2.5rem 2rem; transition:background 0.25s; }
+    .service-card:hover { background:var(--black); color:var(--white); }
+    .service-num { font-family:var(--serif); font-size:2.5rem; font-weight:400; color:var(--light-grey); line-height:1; margin-bottom:2rem; transition:color 0.25s; }
+    .service-card:hover .service-num { color:#333; }
+    .service-title { font-size:0.78rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:1rem; line-height:1.4; }
+    .service-desc { font-size:0.82rem; color:#777; line-height:1.7; transition:color 0.25s; }
+    .service-card:hover .service-desc { color:#aaa; }
+    .service-price { margin-top:2rem; font-family:var(--serif); font-size:1rem; font-style:italic; }
+    .service-card:hover .service-price { color:var(--white); }
+
+    /* ABOUT */
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+    .about-img { width:100%; object-fit:cover; filter:grayscale(20%); }
+    .about-text p { font-size:0.88rem; color:#555; line-height:1.9; margin-bottom:1rem; }
+    .about-text strong { color:var(--black); font-weight:500; }
+    .tools-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem; margin-top:2.5rem; }
+    .tool-tag { border:1px solid var(--light-grey); padding:0.5rem 0.8rem; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey); text-align:center; transition:border-color 0.2s, color 0.2s; }
+    .tool-tag:hover { border-color:var(--black); color:var(--black); }
+
+    /* CTA BANNER */
+    .cta-banner { background:var(--black); color:var(--white); padding:5rem 4rem; text-align:center; }
+    .cta-title { font-family:var(--serif); font-size:clamp(2rem,5vw,4rem); font-weight:500; text-transform:uppercase; letter-spacing:0.18em; line-height:1.1; margin-bottom:1.2rem; }
+    .cta-sub { font-size:0.88rem; color:#aaa; max-width:480px; margin:0 auto 2.5rem; line-height:1.8; }
+    .btn-white { display:inline-block; background:var(--white); color:var(--black); padding:0.85rem 2rem; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; font-weight:500; transition:background 0.2s; }
+    .btn-white:hover { background:var(--light-grey); }
+
+    /* BUTTONS */
+    .btn-outline { display:inline-flex; align-items:center; gap:0.7rem; border:1.5px solid var(--black); color:var(--black); padding:0.8rem 1.6rem; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; font-weight:500; transition:background 0.2s, color 0.2s; width:fit-content; }
+    .btn-outline:hover { background:var(--black); color:var(--white); }
+
+    /* FOOTER */
+    footer { background:var(--black); color:var(--white); padding:1.4rem 2.5rem; display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; }
+    .footer-item { display:flex; align-items:center; gap:0.6rem; font-size:0.72rem; color:#aaa; text-decoration:none; transition:color 0.2s; white-space:nowrap; }
+    .footer-item:hover { color:var(--white); }
+    .footer-sep { width:1px; height:16px; background:#333; flex-shrink:0; }
+    .footer-legal { margin-left:auto; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:#555; text-decoration:none; display:flex; align-items:center; gap:0.8rem; transition:color 0.2s; }
+    .footer-legal::before { content:''; display:block; width:20px; height:1px; background:#333; }
+    .footer-legal:hover { color:#aaa; }
+
+    /* MENTIONS LÉGALES PAGE */
+    .legal-content { max-width:800px; padding:8rem 4rem 6rem; }
+    .legal-content h2 { font-family:var(--serif); font-size:1.4rem; font-weight:500; text-transform:uppercase; letter-spacing:0.18em; margin:2.5rem 0 0.8rem; }
+    .legal-content p, .legal-content li { font-size:0.88rem; color:#555; line-height:1.9; margin-bottom:0.8rem; }
+    .legal-content li { margin-left:1.5rem; }
+
+    /* MOBILE */
+    @media(max-width:900px) {
+      header { grid-template-columns:1fr auto; }
+      .nav-center { display:none; }
+      .work-grid { grid-template-columns:1fr 1fr; }
+      .work-item.wide { grid-column:span 2; }
+      .services-grid { grid-template-columns:1fr 1fr; }
+      .about-grid { grid-template-columns:1fr; }
+      section { padding:4rem 1.5rem; }
+      .page-hero { padding:7rem 1.5rem 3rem; }
+      .legal-content { padding:7rem 1.5rem 4rem; }
+    }
+    @media(max-width:600px) {
+      .work-grid { grid-template-columns:1fr; }
+      .work-item.wide { grid-column:span 1; }
+      .services-grid { grid-template-columns:1fr; }
+      .tools-grid { grid-template-columns:repeat(2,1fr); }
+      footer { gap:1rem; }
+    }
+
+    #accueil { position:relative; z-index:10; min-height:100vh; padding:64px 0 0; margin:0; overflow:hidden; }
+    .hero-left { position:relative; z-index:20; padding:calc(25rem + 570px) 2rem 4rem 0; display:flex; flex-direction:column; justify-content:center; width:80vw; margin-left:0; max-width:none; }
+    .hero-title { font-family:var(--serif); font-size:clamp(1.8rem,3vw,3.8rem); font-weight:300; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; line-height:1; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:1.6rem; background:transparent; color:#ffffff; display:block; padding:0; border:none; position:relative; z-index:21; left:4rem; transform:translateY(-30px); white-space:nowrap; overflow-wrap:normal; word-break:normal; width:100%; max-width:none; }
+    /*.hero-dash { width:40px; height:2px; background:var(--white); margin-bottom:2rem; }*/
+    .hero-desc { font-size:0.9rem; color:#fff; line-height:1.8; max-width:420px; margin-bottom:1.2rem; position:relative; }
+    .hero-desc::before { content:''; position:absolute; left:0; top:0; width:100%; height:110%; background:linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06) 40%, rgba(255,255,255,0) 100%); filter:blur(10px); z-index:-1; border-radius:0.6rem; pointer-events:none; }
+    .hero-desc strong { color:#fff; font-weight:600; }
+    .hero-right { position:absolute; inset:0; z-index:0; overflow:hidden; }
+    .hero-right img { position:absolute; top:-145px; left:0; width:100%; height:auto; object-fit:contain; object-position:center top; display:block; }
+    .port-preview { display:grid; grid-template-columns:repeat(4,1fr); }
+    .port-item { position:relative; overflow:hidden; cursor:pointer; border-left:1px solid var(--light-grey); }
+    .port-item:first-child { border-left:none; }
+    .port-img { width:100%; aspect-ratio:3/4; object-fit:cover; transition:transform 0.5s; }
+    .port-item:hover .port-img { transform:scale(1.06); }
+    .port-overlay { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(0,0,0,0.8),transparent 70%); padding:1.2rem 1rem 0.8rem; opacity:0; transition:opacity 0.3s; }
+    .port-item:hover .port-overlay { opacity:1; }
+    .port-name { font-size:0.68rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#fff; }
+    .port-sub { font-size:0.6rem; color:rgba(255,255,255,0.6); margin-top:0.15rem; }
+    #portfolio-preview { position:relative; z-index:1; background:var(--white); padding:0; }
+    .port-header { display:grid; grid-template-columns:1fr 2.2fr; border-top:1px solid var(--light-grey); }
+    .port-left { padding:4rem 3rem 4rem 4rem; display:flex; flex-direction:column; justify-content:flex-start; border-right:1px solid var(--light-grey); }
+    @media(max-width:900px) {
+      #accueil { grid-template-columns:1fr; }
+      .hero-right { height:50vw; }
+      .port-header { grid-template-columns:1fr; }
+      .port-preview { grid-template-columns:repeat(2,1fr); }
+    }
+
+    /* INTRO ANIMATION */
+    #intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    #intro-overlay.animate {
+      transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #intro-logo {
+      position: fixed;
+      z-index: 10000;
+      font-family: var(--serif);
+      letter-spacing: 0.3em;
+      font-size: 52px;
+      color: #fff;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-decoration: none;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    #intro-logo.animate {
+      transition:
+        top 1.2s cubic-bezier(0.65, 0, 0.35, 1),
+        left 1.2s cubic-bezier(0.65, 0, 0.35, 1),
+        transform 1.2s cubic-bezier(0.65, 0, 0.35, 1),
+        font-size 1.2s cubic-bezier(0.65, 0, 0.35, 1),
+        color 1s ease 0.3s,
+        letter-spacing 1s ease,
+        opacity 1s ease;
+    }
+
+    #intro-logo.nav {
+      top: 17px;
+      left: 2.5rem;
+      transform: translate(0, 0);
+      font-size: 1.15rem;
+      font-weight: 100;
+      letter-spacing: 0.12em;
+      color: var(--black);
+      text-decoration: none;
+      text-transform: uppercase;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- INTRO ANIMATION -->
+  <div id="intro-overlay"></div>
+  <a id="intro-logo" href="index.html">TLOSAO</a>
+
+  <header>
+    <a href="index.html" class="nav-logo"></a>
+    <nav class="nav-center"><a href="index.html" class="active">Accueil</a><a href="portfolio.html" class="">Portfolio</a><a href="services.html" class="">Services</a></nav>
+    <div class="nav-right">
+      <a href="contact.html" class="nav-cta" target="_blank">Parlons de votre projet</a>
+    </div>
+  </header>
+
+  <section id="accueil">
+    <div class="hero-left">
+      <h1 class="hero-title">Transformez vos idées en une véritable ambiance</h1>
+      <div class="hero-dash"></div>
+      
+    </div>
+    <div class="hero-right">
+      <img src="images/index/PREMIERE_IMPRESSION/IMAGE_PRINCIPALE.jpg" alt="Transformez vos idées en une véritable ambiance">
+    </div>
+  </section>
+
+  <section style="position:relative; z-index:2; margin-bottom:-10rem; padding:5rem 4rem 21rem; background:#040404; color:#fff;">
+    <div style="margin-bottom:-35rem; padding-top:5rem;">
+      <div style="font-size:0.65rem; letter-spacing:0.22em; text-transform:uppercase; color:#888; margin-bottom:0.8rem; display:flex; align-items:center; gap:0.6rem;">
+        <span style="display:block; width:25px; height:1px; background:#666; transform: translateY(-50px);"></span>
+        <span style="display:inline-block; transform: translateY(-50px);">Mes compétences</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:1.4rem;">
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:0.6rem;">
+          <img src="images/index/mes compétences/01_AUTOCAD.png" alt="Autocad" style="width:40px; height:40px; object-fit:contain;">
+          <span style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:#fff;">AUTOCAD</span>
+          <p style="margin:0; font-size:0.72rem; line-height:1.4; color:#aaa;">Pour les plans 2D</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:0.6rem;">
+          <img src="images/index/mes compétences/02_SKETCHUP • BLENDER • REVIT • 3DSMAX.png" alt="Sketchup · Blender · Revit · 3dsMax" style="width:40px; height:40px; object-fit:contain;">
+          <span style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:#fff;">SKETCHUP • BLENDER • REVIT • 3DSMAX</span>
+          <p style="margin:0; font-size:0.72rem; line-height:1.4; color:#aaa;">Pour la 3D</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:0.6rem;">
+          <img src="images/index/mes compétences/03_MODÉLISATION_3D.png" alt="Modélisation 3D" style="width:40px; height:40px; object-fit:contain;">
+          <span style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:#fff;">MODÉLISATION 3D</span>
+          <p style="margin:0; font-size:0.72rem; line-height:1.4; color:#aaa;">Précise et optimisée</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:0.6rem;">
+          <img src="images/index/mes compétences/04_SHADING • VRAY • MAPPING.png" alt="Shading • Vray • Mapping" style="width:40px; height:40px; object-fit:contain;">
+          <span style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:#fff;">SHADING • VRAY • MAPPING</span>
+          <p style="margin:0; font-size:0.72rem; line-height:1.4; color:#aaa;">Matière et lumière</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:0.6rem;">
+          <img src="images/index/mes compétences/05_COMPOSITING.png" alt="Compositing" style="width:40px; height:40px; object-fit:contain;">
+          <span style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:#fff;">COMPOSITING</span>
+          <p style="margin:0; font-size:0.72rem; line-height:1.4; color:#aaa;">Assemblage et retouches non destructifs</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:0.6rem;">
+          <img src="images/index/mes compétences/06_POST-PRODUCTION.png" alt="Post-production" style="width:40px; height:40px; object-fit:contain;">
+          <span style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:#fff;">POST-PRODUCTION</span>
+          <p style="margin:0; font-size:0.72rem; line-height:1.4; color:#aaa;">EXR photo ou vidéo</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:0.6rem;">
+          <img src="images/index/mes compétences/07_RENDU D'IMAGES ET D'ANIMATIONS.png" alt="Rendu d'images et d'animations" style="width:40px; height:40px; object-fit:contain;">
+          <span style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:#fff;">RENDU D'IMAGES ET D'ANIMATIONS</span>
+          <p style="margin:0; font-size:0.72rem; line-height:1.4; color:#aaa;">Haute qualité</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="portfolio-preview">
+    <div class="port-header">
+      <div class="port-left">
+        <div class="section-tag" style="transform:translateY(175px);">Portfolio</div>
+        <h2 class="section-title" style="transform:translateY(180px);">Raconter une histoire, montrer un concept</h2>
+        <p style="font-size:0.85rem;color:#666;line-height:1.8;max-width:800px;margin-bottom:2rem;transform:translateY(225px);">Chaque projet que je travaille est pensé pour sublimer l'architecture, l'espace et l'intention derrière chaque concept. Formé à la conception architecturale puis pris de passion par l'infographie 3D, je comprends comment fonctionne l'univers de l'architecture et du paysage. C'est donc sous cette double casquette que je me présente, à la fois technique et créative, qui fait de moi une passerelle naturelle entre vos idées et la communication de projet.<br><br>Passé par l'agence Viguier et travaillé en tant que régisseur pour Claudia Triozzi, je saisi les enjeux qu'un travail en collaboration nécessite ainsi que les responsabilités que cela implique. Je maîtrise Autocad, Sketchup, Blender, Revit, 3dsMax, Photoshop, Davinci resolve et la modélisation 3D de manière plus générale, que ce soit au début pour modéliser jusqu'à l'étape final de rendu et de post-production. Je réalise également des relevés in situ si besoin en Île-de-France.<br><br>Vous souhaitez mettre en image votre projet (rendus 3D, coupes perspectives, axonométries ou animations) à travers le regard de quelqu'un qui vous comprend? Si votre projet a une intention, je saurai le montrer.</p>
+        <a href="portfolio.html" class="btn-outline" style="transform:translateY(280px);">Découvrir le portfolio →</a>
+      </div>
+      <div style="overflow:hidden;"><img src="images/index/des_environnemnts_qui_racontent_une_idée/CREER_UNE_VERITABLE_AMBIANCE.jpg" alt="Des environnements qui racontent une idée" style="width:100%;height:100%;object-fit:cover;"></div>
+    </div>
+  </div><footer>
+    <a href="mailto:3d@tlosao.com" class="footer-item">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      3d@tlosao.com
+    </a>
+    <div class="footer-sep"></div>
+    <a href="tel:+33761496171" class="footer-item">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .99h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.77a16 16 0 006.29 6.29l1.14-1.14a2 2 0 012.11-.45 12.8 12.8 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      07 61 49 61 71
+    </a>
+    <div class="footer-sep"></div>
+    <a href="https://instagram.com/tl0sao" class="footer-item">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="#aaa"/></svg>
+      @tl0sao
+    </a>
+    <div class="footer-sep"></div>
+    <span class="footer-item">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      Mobilité régionale (IDF)
+    </span>
+    <div class="footer-sep"></div>
+    <a href="mentions-legales.html" class="footer-legal">Mentions légales</a>
+  </footer>
+  <div class="lb" id="lb" onclick="closeLb()"><button class="lb-close" onclick="closeLb()">✕</button><img id="lb-img" src="" alt=""></div>
+  <script>
+    function openLb(src){document.getElementById('lb-img').src=src;document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden';}
+    function closeLb(){document.getElementById('lb').classList.remove('open');document.body.style.overflow='';}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
+  </script>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const introOverlay = document.getElementById('intro-overlay');
+      const introLogo = document.getElementById('intro-logo');
+      
+      // Show the animation elements immediately (no transition yet)
+      introOverlay.style.opacity = '1';
+      introLogo.style.opacity = '1';
+      
+      if (!sessionStorage.getItem('animationShown')) {
+        // First visit - play animation after 800ms delay
+        setTimeout(() => {
+          // Enable transitions for animation
+          introOverlay.classList.add('animate');
+          introLogo.classList.add('animate');
+          
+          // Trigger animation
+          introOverlay.style.opacity = '0';
+          introLogo.classList.add('nav');
+          sessionStorage.setItem('animationShown', 'true');
+        }, 800);
+      } else {
+        // Already shown in this session - skip animation and apply final state
+        introOverlay.style.opacity = '0';
+        introLogo.classList.add('nav');
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
