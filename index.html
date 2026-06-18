@@ -55,8 +55,8 @@
     .page-title { font-family:var(--serif); font-size:clamp(2.5rem,6vw,5rem); font-weight:500; text-transform:uppercase; letter-spacing:0.13em; line-height:1; color:var(--black); }
 
     /* SECTIONS */
-    section { padding:5rem 4rem; }
-    .section-tag { font-size:0.65rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--grey); margin-bottom:0.8rem; display:flex; align-items:center; gap:0.8rem; }
+    section { padding:5rem 4rem 10rem; }
+    .section-tag { font-size:0.65rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--grey); margin-bottom:0.8rem; display:flex; align-items:center; gap:0.8rem; transform:translateY(30px); }
     .section-tag::before { content:''; display:block; width:25px; height:1px; background:var(--grey); }
     .section-title{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,3rem);font-weight:500;text-transform:uppercase;line-height:1;letter-spacing:.05em;margin-bottom:1.5rem;white-space:nowrap;}
 
@@ -108,7 +108,7 @@
     .btn-white:hover { background:var(--light-grey); }
 
     /* BUTTONS */
-    .btn-outline { display:inline-flex; align-items:center; gap:0.7rem; border:1.5px solid var(--black); color:var(--black); padding:0.8rem 1.6rem; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; font-weight:500; transition:background 0.2s, color 0.2s; width:fit-content; }
+    .btn-outline { display:inline-flex; align-items:center; gap:0.7rem; border:1.5px solid var(--black); color:var(--black); padding:0.8rem 1.6rem; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; font-weight:500; transition:background 0.2s, color 0.2s; width:fit-content; margin-top:3rem; }
     .btn-outline:hover { background:var(--black); color:var(--white); }
 
     /* FOOTER */
@@ -147,14 +147,31 @@
     }
 
     #accueil { position:relative; z-index:10; min-height:100vh; padding:64px 0 0; margin:0; overflow:hidden; }
-    .hero-left { position:relative; z-index:20; padding:calc(25rem + 570px) 2rem 4rem 0; display:flex; flex-direction:column; justify-content:center; width:80vw; margin-left:0; max-width:none; }
-    .hero-title { font-family:var(--serif); font-size:clamp(1.8rem,3vw,3.8rem); font-weight:300; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; line-height:1; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:1.6rem; background:transparent; color:#ffffff; display:block; padding:0; border:none; position:relative; z-index:21; left:4rem; transform:translateY(-30px); white-space:nowrap; overflow-wrap:normal; word-break:normal; width:100%; max-width:none; }
+    .hero-left {
+        position:absolute;
+        inset:0;
+        display:flex;
+        align-items:flex-end;
+        padding:4rem;
+        z-index:2;
+    }
+    .hero-title { font-family:var(--serif); font-size:clamp(1.8rem,3vw,3.8rem); font-weight:300; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; line-height:1; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:2rem; background:transparent; color:#ffffff; display:block; padding:0; border:none; position:relative; z-index:21; left:0rem; white-space:nowrap; overflow-wrap:normal; word-break:normal; width:100%; max-width:none; }
     /*.hero-dash { width:40px; height:2px; background:var(--white); margin-bottom:2rem; }*/
     .hero-desc { font-size:0.9rem; color:#fff; line-height:1.8; max-width:420px; margin-bottom:1.2rem; position:relative; }
     .hero-desc::before { content:''; position:absolute; left:0; top:0; width:100%; height:110%; background:linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06) 40%, rgba(255,255,255,0) 100%); filter:blur(10px); z-index:-1; border-radius:0.6rem; pointer-events:none; }
     .hero-desc strong { color:#fff; font-weight:600; }
-    .hero-right { position:absolute; inset:0; z-index:0; overflow:hidden; }
-    .hero-right img { position:absolute; top:-145px; left:0; width:100%; height:auto; object-fit:contain; object-position:center top; display:block; }
+    .hero-right {
+        position:relative;
+        width:100%;
+    }
+    .hero-right img {
+        display:block;
+        width:100%;
+        height:auto;
+        position:relative;
+        top:0;
+        left:0;
+    }
     .port-preview { display:grid; grid-template-columns:repeat(4,1fr); }
     .port-item { position:relative; overflow:hidden; cursor:pointer; border-left:1px solid var(--light-grey); }
     .port-item:first-child { border-left:none; }
@@ -166,7 +183,7 @@
     .port-sub { font-size:0.6rem; color:rgba(255,255,255,0.6); margin-top:0.15rem; }
     #portfolio-preview { position:relative; z-index:1; background:var(--white); padding:0; }
     .port-header { display:grid; grid-template-columns:1fr 2.2fr; border-top:1px solid var(--light-grey); }
-    .port-left { padding:4rem 3rem 4rem 4rem; display:flex; flex-direction:column; justify-content:flex-start; border-right:1px solid var(--light-grey); }
+    .port-left { padding:4rem 3rem 4rem 4rem; display:flex; flex-direction:column; justify-content:center; gap:2rem; border-right:1px solid var(--light-grey); }
     @media(max-width:900px) {
       #accueil { grid-template-columns:1fr; }
       .hero-right { height:50vw; }
@@ -252,13 +269,12 @@
     </div>
   </section>
 
-  <section style="position:relative; z-index:2; margin-bottom:-10rem; padding:5rem 4rem 21rem; background:#040404; color:#fff;">
-    <div style="margin-bottom:-35rem; padding-top:5rem;">
-      <div style="font-size:0.65rem; letter-spacing:0.22em; text-transform:uppercase; color:#888; margin-bottom:0.8rem; display:flex; align-items:center; gap:0.6rem;">
-        <span style="display:block; width:25px; height:1px; background:#666; transform: translateY(-50px);"></span>
-        <span style="display:inline-block; transform: translateY(-50px);">Mes compétences</span>
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:1.4rem;">
+  <section style="position:relative; z-index:2; background:#040404; color:#fff; display:flex; flex-direction:column; gap:4rem; padding:5rem 4rem;">
+    <div style="font-size:0.65rem; letter-spacing:0.22em; text-transform:uppercase; color:#888; margin-bottom:0.8rem; display:flex; align-items:center; gap:0.8rem;">
+      <span style="display:block; width:25px; height:1px; background:#666;"></span>
+      <span>Mes compétences</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:1.4rem;">
         <div style="display:flex; flex-direction:column; align-items:flex-start; gap:0.6rem;">
           <img src="images/index/mes compétences/01_AUTOCAD.png" alt="Autocad" style="width:40px; height:40px; object-fit:contain;">
           <span style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:#fff;">AUTOCAD</span>
@@ -295,16 +311,15 @@
           <p style="margin:0; font-size:0.72rem; line-height:1.4; color:#aaa;">Haute qualité</p>
         </div>
       </div>
-    </div>
   </section>
 
   <div id="portfolio-preview">
     <div class="port-header">
       <div class="port-left">
-        <div class="section-tag" style="transform:translateY(175px);">Portfolio</div>
-        <h2 class="section-title" style="transform:translateY(180px);">Raconter une histoire, montrer un concept</h2>
-        <p style="font-size:0.85rem;color:#666;line-height:1.8;max-width:800px;margin-bottom:2rem;transform:translateY(225px);">Chaque projet que je travaille est pensé pour sublimer l'architecture, l'espace et l'intention derrière chaque concept. Formé à la conception architecturale puis pris de passion par l'infographie 3D, je comprends comment fonctionne l'univers de l'architecture et du paysage. C'est donc sous cette double casquette que je me présente, à la fois technique et créative, qui fait de moi une passerelle naturelle entre vos idées et la communication de projet.<br><br>Passé par l'agence Viguier et travaillé en tant que régisseur pour Claudia Triozzi, je saisis les enjeux qu'un travail en collaboration nécessite ainsi que les responsabilités que cela implique. Je maîtrise Autocad, Sketchup, Blender, Revit, 3dsMax, Photoshop, Davinci resolve et la modélisation 3D de manière plus générale, que ce soit au début pour modéliser jusqu'à l'étape final de rendu et de post-production. Je réalise également des relevés in situ si besoin en Île-de-France.<br><br>Vous souhaitez mettre en image votre projet (rendus 3D, coupes perspectives, axonométries ou animations) à travers le regard de quelqu'un qui vous comprend? Si votre projet a une intention, je saurai le montrer.</p>
-        <a href="portfolio.html" class="btn-outline" style="transform:translateY(280px);">Découvrir le portfolio →</a>
+        <div class="section-tag">Portfolio</div>
+        <h2 class="section-title">Raconter une histoire, montrer un concept</h2>
+        <p style="font-size:0.85rem;color:#666;line-height:1.8;max-width:800px;margin-bottom:2rem;">Chaque projet que je travaille est pensé pour sublimer l'architecture, l'espace et l'intention derrière chaque concept. Formé à la conception architecturale puis pris de passion par l'infographie 3D, je comprends comment fonctionne l'univers de l'architecture et du paysage. C'est donc sous cette double casquette que je me présente, à la fois technique et créative, qui fait de moi une passerelle naturelle entre vos idées et la communication de projet.<br><br>Passé par l'agence Viguier et travaillé en tant que régisseur pour Claudia Triozzi, je saisis les enjeux qu'un travail en collaboration nécessite ainsi que les responsabilités que cela implique. Je maîtrise Autocad, Sketchup, Blender, Revit, 3dsMax, Photoshop, Davinci resolve et la modélisation 3D de manière plus générale, que ce soit au début pour modéliser jusqu'à l'étape final de rendu et de post-production. Je réalise également des relevés in situ si besoin en Île-de-France.<br><br>Vous souhaitez mettre en image votre projet (rendus 3D, coupes perspectives, axonométries ou animations) à travers le regard de quelqu'un qui vous comprend? Si votre projet a une intention, je saurai le montrer.</p>
+        <a href="portfolio.html" class="btn-outline">Découvrir le portfolio →</a>
       </div>
       <div style="overflow:hidden;"><img src="images/index/des_environnemnts_qui_racontent_une_idée/CREER_UNE_VERITABLE_AMBIANCE.jpg" alt="Des environnements qui racontent une idée" style="width:100%;height:100%;object-fit:cover;"></div>
     </div>
