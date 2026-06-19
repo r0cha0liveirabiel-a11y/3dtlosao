@@ -44,6 +44,7 @@
     .nav-center a { font-size:0.72rem; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; color:var(--grey); transition:color 0.2s; padding-bottom:2px; border-bottom:1px solid transparent; }
     .nav-center a:hover, .nav-center a.active { color:var(--black); border-bottom-color:var(--black); }
     .nav-right { display:flex; justify-content:flex-end; align-items:center; gap:2rem; }
+    .mobile-menu-btn { display:none; }
     .nav-email:hover { color:var(--black); }
     .nav-cta { background:var(--black); color:var(--white); padding:0.65rem 1.4rem; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none; font-weight:500; white-space:nowrap; transition:background 0.2s; }
     .nav-cta:hover { background:#333; }
@@ -128,14 +129,85 @@
 
     /* MOBILE */
     @media(max-width:900px) {
-      header { grid-template-columns:1fr auto; }
+      header {
+        grid-template-columns:1fr auto;
+        height:56px;
+        padding:0 1rem;
+      }
       .nav-center { display:none; }
+      .nav-center.open {
+        display:flex;
+        position:absolute;
+        top:56px;
+        left:0;
+        right:0;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:0;
+        padding:1rem;
+        background:rgba(255,255,255,0.98);
+        box-shadow:0 14px 30px rgba(0,0,0,0.08);
+        z-index:200;
+      }
+      .nav-center a {
+        width:100%;
+        padding:0.85rem 0;
+        border-bottom:1px solid rgba(0,0,0,0.05);
+      }
+      .nav-center a:last-child { border-bottom:none; }
+      .mobile-menu-btn { display:flex; align-items:center; justify-content:center; width:40px; height:40px; border:none; background:none; color:var(--black); font-size:1.3rem; cursor:pointer; }
+      .nav-right { gap:1rem; }
+      .nav-cta {
+        padding:.55rem .9rem;
+        font-size:.6rem;
+        letter-spacing:.08em;
+      }
       .work-grid { grid-template-columns:1fr 1fr; }
       .work-item.wide { grid-column:span 2; }
       .services-grid { grid-template-columns:1fr 1fr; }
       .about-grid { grid-template-columns:1fr; }
-      section { padding:4rem 1.5rem; }
-      .page-hero { padding:7rem 1.5rem 3rem; }
+      section { padding:3rem 1.25rem; }
+      .page-hero { padding:6rem 1.25rem 2rem; }
+      .cta-banner { padding:3rem 1.25rem; }
+      .port-left { padding:2rem 1.25rem; }
+      .port-left p { font-size:.8rem; line-height:1.7; }
+      .hero-left {
+        padding:1.5rem;
+        background:linear-gradient(to top, rgba(0,0,0,.65), rgba(0,0,0,.15), transparent);
+      }
+      .hero-title {
+        white-space:normal;
+        font-size:clamp(1.8rem,8vw,3rem);
+        line-height:1.1;
+        letter-spacing:.03em;
+        max-width:100%;
+      }
+      .section-title {
+        white-space:normal;
+      }
+      #accueil { grid-template-columns:1fr; padding-top:56px; min-height:auto; }
+      .hero-right { height:70vh; }
+      .hero-right img {
+        width:100%;
+        height:100%;
+        object-fit:cover;
+      }
+      #intro-logo.nav {
+        left:1rem;
+        top:20px;
+        font-size:1rem;
+      }
+      .btn-outline {
+        width:100%;
+        justify-content:center;
+      }
+      .port-header { grid-template-columns:1fr; }
+      .port-preview { grid-template-columns:repeat(2,1fr); }
+      .port-overlay,
+      .work-info {
+        opacity:1;
+        transition:none;
+      }
       .legal-content { padding:7rem 1.5rem 4rem; }
     }
     @media(max-width:600px) {
@@ -143,7 +215,18 @@
       .work-item.wide { grid-column:span 1; }
       .services-grid { grid-template-columns:1fr; }
       .tools-grid { grid-template-columns:repeat(2,1fr); }
-      footer { gap:1rem; }
+      .skills-grid { grid-template-columns:1fr 1fr; }
+      footer {
+        flex-direction:column;
+        align-items:flex-start;
+        padding:2rem 1.5rem;
+        gap:1rem;
+      }
+      .footer-sep { display:none; }
+      .footer-legal {
+        margin-left:0;
+        margin-top:1rem;
+      }
     }
 
     #accueil { position:relative; z-index:10; min-height:100vh; padding:64px 0 0; margin:0; overflow:hidden; }
@@ -155,7 +238,7 @@
         padding:4rem;
         z-index:2;
     }
-    .hero-title { font-family:var(--serif); font-size:clamp(1.8rem,3vw,3.8rem); font-weight:300; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; line-height:1; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:2rem; background:transparent; color:#ffffff; display:block; padding:0; border:none; position:relative; z-index:21; left:0rem; white-space:nowrap; overflow-wrap:normal; word-break:normal; width:100%; max-width:none; }
+    .hero-title { font-family:var(--serif); font-size:clamp(1.8rem,3vw,3.8rem); font-weight:300; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; line-height:1; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:2rem; background:transparent; color:#ffffff; display:block; padding:0; border:none; position:relative; z-index:21; left:0rem; overflow-wrap:break-word; word-break:break-word; width:100%; max-width:none; }
     /*.hero-dash { width:40px; height:2px; background:var(--white); margin-bottom:2rem; }*/
     .hero-desc { font-size:0.9rem; color:#fff; line-height:1.8; max-width:420px; margin-bottom:1.2rem; position:relative; }
     .hero-desc::before { content:''; position:absolute; left:0; top:0; width:100%; height:110%; background:linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.06) 40%, rgba(255,255,255,0) 100%); filter:blur(10px); z-index:-1; border-radius:0.6rem; pointer-events:none; }
@@ -186,7 +269,6 @@
     .port-left { padding:4rem 3rem 4rem 4rem; display:flex; flex-direction:column; justify-content:center; gap:2rem; border-right:1px solid var(--light-grey); }
     @media(max-width:900px) {
       #accueil { grid-template-columns:1fr; }
-      .hero-right { height:50vw; }
       .port-header { grid-template-columns:1fr; }
       .port-preview { grid-template-columns:repeat(2,1fr); }
     }
@@ -254,6 +336,7 @@
     <a href="index.html" class="nav-logo"></a>
     <nav class="nav-center"><a href="index.html" class="active">Accueil</a><a href="portfolio.html" class="">Portfolio</a><a href="services.html" class="">Services</a></nav>
     <div class="nav-right">
+      <button class="mobile-menu-btn" aria-label="Menu" aria-expanded="false">☰</button>
       <a href="contact.html" class="nav-cta" target="_blank">Parlons de votre projet</a>
     </div>
   </header>
@@ -274,7 +357,7 @@
       <span style="display:block; width:25px; height:1px; background:#666;"></span>
       <span>Mes compétences</span>
     </div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:1.4rem;">
+    <div class="skills-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:1.4rem;">
         <div style="display:flex; flex-direction:column; align-items:flex-start; gap:0.6rem;">
           <img src="images/index/mes compétences/01_AUTOCAD.png" alt="Autocad" style="width:40px; height:40px; object-fit:contain;">
           <span style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; color:#fff;">AUTOCAD</span>
@@ -357,13 +440,26 @@
     window.addEventListener('DOMContentLoaded', () => {
       const introOverlay = document.getElementById('intro-overlay');
       const introLogo = document.getElementById('intro-logo');
+      const menuToggle = document.querySelector('.mobile-menu-btn');
+      const navCenter = document.querySelector('.nav-center');
+
+      if (menuToggle && navCenter) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = navCenter.classList.toggle('open');
+          menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        navCenter.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+          navCenter.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }));
+      }
       
       // Show the animation elements immediately (no transition yet)
       introOverlay.style.opacity = '1';
       introLogo.style.opacity = '1';
       
       if (!sessionStorage.getItem('animationShown')) {
-        // First visit - play animation after 800ms delay
+        // First visit - play animation after 300ms delay
         setTimeout(() => {
           // Enable transitions for animation
           introOverlay.classList.add('animate');
@@ -373,7 +469,7 @@
           introOverlay.style.opacity = '0';
           introLogo.classList.add('nav');
           sessionStorage.setItem('animationShown', 'true');
-        }, 800);
+        }, 300);
       } else {
         // Already shown in this session - skip animation and apply final state
         introOverlay.style.opacity = '0';
